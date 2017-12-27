@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
@@ -44,6 +45,8 @@ public class RulerView extends View{
 
     // 是否执行滚动
     private boolean isScrollingPerformed;
+    // 屏幕的宽度
+    private int mScreenWidth;
 
     public RulerView(Context context) {
         this(context,null);
@@ -55,8 +58,50 @@ public class RulerView extends View{
 
     public RulerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        scroller = new RulerViewScroller(context,scrollinglistener);
+        setBackgroundColor(Color.BLUE);
+      //  scroller = new RulerViewScroller(context,scrollinglistener);
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        mScreenWidth = displayMetrics.widthPixels;
+        Log.d(TAG,"mScreenWidth:"+ mScreenWidth);
     }
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        setMeasuredDimension(measureWidthSize(widthMeasureSpec),measureHeightSize(heightMeasureSpec));
+    }
+
+    private int measureHeightSize(int heightMeasureSpec) {
+        int result;
+        int mode=MeasureSpec.getMode(heightMeasureSpec);
+        int size=MeasureSpec.getSize(heightMeasureSpec);
+        if(mode==MeasureSpec.EXACTLY){
+            result=size;
+        }else{
+            result = getHeight() + getPaddingTop() + getPaddingBottom();
+            if(mode==MeasureSpec.AT_MOST){
+                result=Math.min(result,size);
+            }
+        }
+        Log.d(TAG,"result---HEIGHT:"+result);
+        return  result;
+    }
+
+    private int measureWidthSize(int widthMeasureSpec) {
+        int result;
+        int mode=MeasureSpec.getMode(widthMeasureSpec);
+        int size=MeasureSpec.getSize(widthMeasureSpec);
+        if(mode==MeasureSpec.EXACTLY){
+            result=size;
+        }else{
+            result=size + getPaddingLeft() + getPaddingRight();
+            if(mode==MeasureSpec.AT_MOST){
+                result=Math.min(result,size);
+            }
+        }
+        Log.d(TAG,"result:"+result);
+        return  result;
+    }
+
+
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -73,7 +118,7 @@ public class RulerView extends View{
         paint.setColor(mCenterColor);
         paint.setStrokeWidth(mCenterWidth / 2);
         canvas.drawLine(leftMargin+mCenterWidth/2 ,getMeasuredHeight() / 2  +mCenterHigh + offset / 2,
-                getMeasuredWidth() - leftMargin ,getMeasuredHeight() / 2  + mCenterHigh + offset / 2,paint);
+                mScreenWidth - leftMargin ,getMeasuredHeight() / 2  + mCenterHigh + offset / 2,paint);
 
 
         // 绘制底部数字
@@ -86,7 +131,7 @@ public class RulerView extends View{
             mTextPaint.getTextBounds(String.valueOf(i),0,1,mCenterRect);
             Log.d(TAG,"mCenterRect.width:"+mCenterRect.width());
             mCenterTextHeight = mCenterRect.height();
-            avagerNum = (getMeasuredWidth()-leftMargin *2 ) / 9 ;
+            avagerNum = (mScreenWidth-leftMargin *2 ) / 9 ;
             ruleX = leftMargin - mCenterRect.width() / 2;
             Log.d(TAG,"ruleX.width:"+ ruleX);
             canvas.drawText(String.valueOf(i),ruleX + avagerNum * (i-1) ,
@@ -136,7 +181,7 @@ public class RulerView extends View{
 
     }
 
-    RulerViewScroller.ScrollingListener scrollinglistener = new RulerViewScroller.ScrollingListener() {
+   /* RulerViewScroller.ScrollingListener scrollinglistener = new RulerViewScroller.ScrollingListener() {
         @Override
         public void onScroll(int distance) {
 
@@ -175,26 +220,26 @@ public class RulerView extends View{
     }
 
     public interface OnRulerViewScrollListener<T> {
-        /**
+        *//**
          * 当更改选择的时候回调方法
          * @param rulerView 状态更改的view
          * @param oldValue  当前item的旧值
          * @param newValue  当前item的新值
-         */
+         *//*
         void onChanged(RulerView rulerView, T oldValue, T newValue);
 
-        /**
+        *//**
          * 滚动启动时调用的回调方法
          * @param rulerView
-         */
+         *//*
         void onScrollingStarted(RulerView rulerView);
 
-        /**
+        *//**
          * 滚动结束时调用的回调方法
          * @param rulerView
-         */
+         *//*
         void onScrollingFinished(RulerView rulerView);
 
-    }
+    }*/
 
 }

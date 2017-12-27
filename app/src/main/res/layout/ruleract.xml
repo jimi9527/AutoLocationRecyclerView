@@ -3,7 +3,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.example.dengjx.verticalrecylerviewselector.RulerView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rulerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+        <TextView
+            android:layout_gravity="center|bottom"
+            android:background="@color/colorAccent"
+            android:layout_width="5dp"
+            android:layout_height="50dp" />
+    </FrameLayout>
 </LinearLayout>
