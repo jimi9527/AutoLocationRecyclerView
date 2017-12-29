@@ -12,7 +12,7 @@ import android.view.View;
  */
 
 public class RulerActivity extends Activity {
-    RecyclerView mRulerView;
+    RulerRecylercView mRulerView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +24,7 @@ public class RulerActivity extends Activity {
         mRulerView.setLayoutManager(linearLayoutManager);
         mRulerView.setAdapter(rulerViewAdapter);
         mRulerView.smoothScrollToPosition(1);
+
 
     }
 

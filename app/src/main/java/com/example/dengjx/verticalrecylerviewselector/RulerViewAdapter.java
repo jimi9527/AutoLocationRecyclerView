@@ -29,6 +29,9 @@ public class RulerViewAdapter extends RecyclerView.Adapter {
         }
     }
 
+    public void getAvg(){
+        
+    }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType == TYPE_HEAD_FOOT){

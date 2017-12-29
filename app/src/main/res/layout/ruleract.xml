@@ -6,11 +6,11 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <android.support.v7.widget.RecyclerView
+        <com.example.dengjx.verticalrecylerviewselector.RulerView
             android:id="@+id/rulerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        </android.support.v7.widget.RecyclerView>
+        </com.example.dengjx.verticalrecylerviewselector.RulerView>
         <TextView
             android:layout_gravity="center|bottom"
             android:background="@color/colorAccent"

@@ -48,6 +48,7 @@ public class RulerView extends View{
     // 屏幕的宽度
     private int mScreenWidth;
 
+
     public RulerView(Context context) {
         this(context,null);
     }
@@ -100,7 +101,9 @@ public class RulerView extends View{
         Log.d(TAG,"result:"+result);
         return  result;
     }
-
+    public int returnAvg(){
+        return avagerNum;
+    }
 
 
     @Override
