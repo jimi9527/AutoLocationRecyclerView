@@ -29,9 +29,6 @@ public class RulerViewAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public void getAvg(){
-        
-    }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType == TYPE_HEAD_FOOT){
@@ -44,7 +41,7 @@ public class RulerViewAdapter extends RecyclerView.Adapter {
         }else {
             RulerView rulerview = new RulerView(context);
             RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    200);
+                    300);
             rulerview.setLayoutParams(params);
             Log.d(TAG,"params.width:"+params.width);
             Log.d(TAG,"params.height:"+params.height);
