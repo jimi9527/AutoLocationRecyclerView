@@ -124,39 +124,7 @@ public class AutoLocateHorizontalView extends RecyclerView
         calculateSelectedPos();
     }
 
-    /**
-     * 删除时选中的数据发生改变，要重新回调方法
-     *
-     * @param startPos
-     */
-    private void reCallListenerWhenRemove(int startPos) {
-        if (startPos <= selectPos && listener != null) {
-            correctDeltax(adapter);
-            listener.selectedPositionChanged(selectPos);
-        } else {
-            correctDeltax(adapter);
-        }
-    }
 
-    /**
-     * 添加数据时选中的数据发生改变，要重新回调方法
-     *
-     * @param startPos
-     */
-    private void reCallListenerWhenAdd(int startPos) {
-        if (startPos <= selectPos && listener != null) {
-            listener.selectedPositionChanged(selectPos);
-        }
-    }
-
-    /**
-     * 当使用整体刷新时要重新回调方法
-     */
-    private void reCallListenerWhenChanged() {
-        if (listener != null) {
-            listener.selectedPositionChanged(selectPos);
-        }
-    }
 
     @Override
     public void setAdapter(final Adapter adapter) {
@@ -168,19 +136,16 @@ public class AutoLocateHorizontalView extends RecyclerView
             public void onChanged() {
                 super.onChanged();
                 wrapAdapter.notifyDataSetChanged();
-                reCallListenerWhenChanged();
             }
 
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 wrapAdapter.notifyDataSetChanged();
-                reCallListenerWhenAdd(positionStart);
             }
 
             @Override
             public void onItemRangeRemoved(int positionStart, int itemCount) {
                 wrapAdapter.notifyDataSetChanged();
-                reCallListenerWhenRemove(positionStart);
             }
         });
         deltaX = 0;

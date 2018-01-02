@@ -159,6 +159,7 @@ public class RulerView extends View{
                     getMeasuredHeight() / 2  + mCenterHigh + offset / 2 + mCenterWidth /2  ,linepaint);
         }
 
+
     }
 
 
@@ -183,66 +184,5 @@ public class RulerView extends View{
                         mCenterRect.height() + offset + mCenterHigh,paint);
 
     }
-
-   /* RulerViewScroller.ScrollingListener scrollinglistener = new RulerViewScroller.ScrollingListener() {
-        @Override
-        public void onScroll(int distance) {
-
-        }
-
-        @Override
-        public void onStarted() {
-            isScrollingPerformed = true;
-            if(null != onWeelListener){
-                onWeelListener.onScrollingStarted(RulerView.this);
-            }
-        }
-
-        @Override
-        public void onFinished() {
-
-            if (isScrollingPerformed) {
-                //滚动结束
-                if (null != onWeelListener) {
-                    onWeelListener.onScrollingFinished(RulerView.this);
-                }
-                isScrollingPerformed = false;
-            }
-        }
-
-        @Override
-        public void onJustify() {
-
-        }
-    };
-
-    private OnRulerViewScrollListener onWeelListener;
-
-    public void setOnRulerScrollListener(OnRulerViewScrollListener onWeelListener){
-        this.onWeelListener = onWeelListener;
-    }
-
-    public interface OnRulerViewScrollListener<T> {
-        *//**
-         * 当更改选择的时候回调方法
-         * @param rulerView 状态更改的view
-         * @param oldValue  当前item的旧值
-         * @param newValue  当前item的新值
-         *//*
-        void onChanged(RulerView rulerView, T oldValue, T newValue);
-
-        *//**
-         * 滚动启动时调用的回调方法
-         * @param rulerView
-         *//*
-        void onScrollingStarted(RulerView rulerView);
-
-        *//**
-         * 滚动结束时调用的回调方法
-         * @param rulerView
-         *//*
-        void onScrollingFinished(RulerView rulerView);
-
-    }*/
 
 }

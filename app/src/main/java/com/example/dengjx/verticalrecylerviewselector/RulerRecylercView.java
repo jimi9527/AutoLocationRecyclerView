@@ -25,60 +25,58 @@ public class RulerRecylercView extends RecyclerView {
     // 当前定位的数字刻度值
     private int mCurNum;
     private onReturnNum onreturnNum;
+    int curDeltay;
 
     public RulerRecylercView(Context context) {
-        this(context,null);
+        this(context, null);
     }
+
     boolean isFinish;
+    private Context context;
     public RulerRecylercView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         mScreenWidth = displayMetrics.widthPixels;
-        Log.d(TAG,"mScreenWidth:"+ mScreenWidth);
-        avagerNum = (mScreenWidth-leftMargin *2 ) / 9 ;
-        Log.d(TAG,"avagerNum:"+ avagerNum);
-
+        Log.d(TAG, "mScreenWidth:" + mScreenWidth);
+        avagerNum = (mScreenWidth - leftMargin * 2) / 9;
+        Log.d(TAG, "avagerNum:" + avagerNum);
+        curDeltay = mScreenWidth / 2;
     }
-    public void setOnReturnNum(onReturnNum onReturnNum){
+
+    public void setOnReturnNum(onReturnNum onReturnNum) {
         this.onreturnNum = onReturnNum;
     }
 
 
-    public interface onReturnNum{
+    public interface onReturnNum {
         void onNum(int num);
     }
-
-    // 在setAdapter 之后调用
-     public void initScoll(){
-         scrollBy(5 * avagerNum + leftMargin,0);
-         getAdapter().notifyDataSetChanged();
-     }
 
     @Override
     public void onScrollStateChanged(int state) {
         super.onScrollStateChanged(state);
-        if(state == SCROLL_STATE_DRAGGING){
-            isFinish = true;
-        }
 
-        if(state == SCROLL_STATE_IDLE ){
-            if(isFinish) {
-                int curDeltay = deltay;
-                Log.d(TAG, "delaty:" + deltay);
-                mCurNum = ((deltay - leftMargin )/ avagerNum +1 );
-                Log.d(TAG, "(deltay - leftMargin )/ avagerNum :" +((deltay - leftMargin )/ avagerNum +1 ));
-                Log.d(TAG, "(deltay - leftMargin )/ avagerNum :" +((deltay - leftMargin )/ avagerNum +1 ) * avagerNum);
-                int mscroll = ((deltay - leftMargin )/ avagerNum + 1 ) * avagerNum - curDeltay - leftMargin;
-                if(Math.abs(mscroll) > (avagerNum /2)){
+        if (state == SCROLL_STATE_IDLE) {
+
+            Log.d(TAG, "delaty:" + deltay);
+            mCurNum = ((deltay - leftMargin) / avagerNum );
+            Log.d(TAG, "(deltay - leftMargin )/ avagerNum :" + ((deltay - leftMargin) / avagerNum ) * avagerNum);
+            int mscroll = ((deltay - leftMargin) / avagerNum ) * avagerNum - deltay + leftMargin + dptopx()/2 ;
+            Log.d(TAG, "mscroll:" + mscroll);
+            Log.d(TAG, "mCurNum:" + mCurNum);
+            //判断是否大于3分之2则刻度直接加1
+            if(mCurNum > 0 && mCurNum < 9) {
+                if (Math.abs(mscroll) >= (avagerNum * 2 / 3)) {
                     mCurNum = mCurNum + 1;
                     mscroll = avagerNum - Math.abs(mscroll);
                 }
-                Log.d(TAG, "mscroll:" + mscroll);
-                onreturnNum.onNum(mCurNum);
-
-                scrollBy(mscroll,0);
-                 getAdapter().notifyDataSetChanged();
             }
+            Log.d(TAG, "mCurNum:" + mCurNum);
+            onreturnNum.onNum(mCurNum);
+            scrollBy(mscroll, 0);
+            getAdapter().notifyDataSetChanged();
+
         }
     }
 
@@ -86,6 +84,11 @@ public class RulerRecylercView extends RecyclerView {
     public void onScrolled(int dx, int dy) {
         super.onScrolled(dx, dy);
         deltay = deltay + dx;
+    }
+    // dp转px 4为中间指针的宽度
+    public int dptopx(){
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (4 * scale + 0.5f);
     }
 
 

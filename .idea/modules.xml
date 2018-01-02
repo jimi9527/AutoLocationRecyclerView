@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AutoLocationRecyclerView.iml" filepath="$PROJECT_DIR$/AutoLocationRecyclerView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VerticalRecylerviewSelector.iml" filepath="$PROJECT_DIR$/VerticalRecylerviewSelector.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

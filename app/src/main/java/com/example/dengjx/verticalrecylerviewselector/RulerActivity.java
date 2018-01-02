@@ -28,8 +28,8 @@ public class RulerActivity extends Activity implements onReturnNum {
         mRulerView.setLayoutManager(linearLayoutManager);
         mRulerView.setAdapter(rulerViewAdapter);
         mRulerView.setOnReturnNum(this);
-        mRulerView.initScoll();
         mRulerView.smoothScrollToPosition(1);
+
 
     }
 
